@@ -65,10 +65,11 @@ static void linkNewDirectory(Directory* parent, Directory* newDir) {
 static void splitPathToQueue(Queue* queue, char* path) {
     char* token = strtok(path, "/");
     while(token != NULL) {
-        if(strlen(token) > 0) enqueue(queue, token); // 빈 세그먼트 무시
+        if(strlen(token) > 0) enqueue(queue, strdup(token)); //strdup로 복사해서 enqueue
         token = strtok(NULL, "/");
     }
 }
+
 
 /*
  mkdir 명령어의 스레드 함수

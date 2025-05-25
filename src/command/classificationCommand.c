@@ -1,6 +1,7 @@
 #include "../header/Header.h"
 
 
+
 void classificationCommand(char * cmd){
     
     //명령어 없음
@@ -319,9 +320,19 @@ void classificationCommand(char * cmd){
 }
 
     //pwd
-    // else if(strcmp(command, "pwd") == 0){
-    //     printf("%s\n", dirTree->current->route);
-    // }
+    else if (strcmp(command, "pwd")==0) {
+    Queue dirQueue;
+    initQueue(&dirQueue);
+
+    // 옵션 파싱
+    char *opt = strtok_r(NULL, " ", &saveptr);
+    pwd(dirTree, &dirQueue, opt);
+
+    // 필요하다면 freeQueue(&dirQueue); // 큐 메모리 해제
+    return;
+}
+
+
     //mv
     //mv 디렉토리 이름도 변경 가능하도록 확장
     else if(strcmp(command, "mv") == 0){
@@ -423,6 +434,14 @@ void classificationCommand(char * cmd){
             free(dirPaths[i]);
         }
     }
+    //adduser
+    else if(strcmp(command, "adduser") == 0 ) {
+        char *opt = strtok_r(NULL, "", &saveptr);
+        adduser(opt, dirTree, &userList); // 함수 이름을 맞춰서 호출
+        return;
+    }
+
+
     
     //zip.c
     else if (strcmp(command, "zip") == 0) {

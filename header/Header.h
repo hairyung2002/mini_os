@@ -251,6 +251,7 @@ static Directory* create_file_safely(const char* path, const char* mode, long si
 //useradd
 User* addUser(char* username, int UID, int GID);
 void createHomeDirectory(char* username, User* newUser);
+void adduser(char* argument, DirectoryTree* dirtree, UserList** usertree);
 
 //login.c
 User* login();
@@ -258,5 +259,8 @@ User* login();
 //printHeader
 void printHeader(DirectoryTree* workingDirectory, User* user);
 
+//pwd
+// pwd 함수 선언
+int pwd(DirectoryTree *dirTree, Queue *dirQueue, char *option);
 
 #endif
