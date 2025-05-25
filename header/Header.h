@@ -8,6 +8,7 @@
 #include <time.h>
 #include <utime.h>
 #include <pthread.h>
+#include <stdint.h>
 
 //Max 길이 설정
 #define MAX_BUFFER 512
@@ -245,7 +246,7 @@ static void create_directory_safely(const char* path, const char* mode, bool cre
 static Directory* create_file_safely(const char* path, const char* mode, long size);
 
 //clear
-
+int clear();
 
 
 //useradd
