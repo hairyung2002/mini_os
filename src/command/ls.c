@@ -14,11 +14,8 @@ void showDirectoryDetail(Directory* temp, char * name){
     permission[8] = (temp->permission[7]) ? 'w' : '-';
     permission[9] = (temp->permission[8]) ? 'x' : '-';
 
-    char* userName = findUserById(temp->UID);
-    if (!userName) userName = "(null)";
-    char* groupName = findGroupById(temp->GID);
-    if (!groupName) groupName = "(null)";
-
+    char*userName = findUserById(temp->UID);
+    char*groupName = findGroupById(temp->GID);
     int link = countLink(temp);
 
     printf("%s %2d %-8s %-8s %5d ", 
@@ -46,48 +43,6 @@ void showDirectoryDetail(Directory* temp, char * name){
     
 }
 
-
-void listDirectory(Directory * directory, bool showAll, bool showDetails){
-    Directory* temp = directory->leftChild;
-
-    if(temp == NULL && showAll == false){
-        return;
-    }
-
-    if(showAll && showDetails){
-        showDirectoryDetail(directory, ".");
-        showDirectoryDetail(directory->parent, "..");
-    }
-    else if(showAll && !showDetails){
-        BLUE;
-        printf("%-10s", ".");
-        printf("%-10s", "..");
-        DEFAULT;
-    }
-
-    while(temp != NULL){
-        if(temp->visible || showAll){
-            if(showDetails){
-                showDirectoryDetail(temp, temp->name);
-            }else{
-                if(temp->type == 'd'){
-                    BLUE;
-                    printf("%-10s ", temp->name);
-                    DEFAULT;
-                }else if(temp->type == '-'){
-                    printf("%-10s ", temp->name);
-                }
-            }
-
-        }
-        temp = temp->rightSibling;
-    }
-    if(!showDetails){
-        printf("\n");
-    }
-}
-
-/* case별로 깔끔하게 리팩토링 버전전
 
 void listDirectory(Directory *directory, bool showAll, bool showDetails) {
     Directory* temp = directory->leftChild;
@@ -146,7 +101,7 @@ void listDirectory(Directory *directory, bool showAll, bool showDetails) {
     }
 }
 
-*/
+
 
 
 //스레드 관련 공부 후 리팩토링 예정

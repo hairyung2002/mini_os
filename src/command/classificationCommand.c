@@ -42,7 +42,7 @@ void classificationCommand(char * cmd){
         pthread_t threads[MAX_THREAD];
         int threadCount = 0;
 
-        //command가 없을 시 현재 디렉토리 내용 출력
+         //command가 없을 시 현재 디렉토리 내용 출력
         if(command == NULL){
             targetDirectory = dirTree->current;
             listDirectory(targetDirectory, showAll, showDetails); //타겟 디렉토리 내용 나열
@@ -55,16 +55,19 @@ void classificationCommand(char * cmd){
                         //해당 경로 없을 시 오류 출력
                         printf("ls: No such file or directory: %s\n", command);
                     }else{
-                        ListArgs* data = (ListArgs*)malloc(sizeof(ListArgs));
+                       ListArgs* data = (ListArgs*)malloc(sizeof(ListArgs));
                         data->directory = targetDirectory;
                         data->showAll = showAll;
                         data->showDetails = showDetails;
                     
                         pthread_create(&threads[threadCount], NULL, listDirectoryThread, (void*)data);
-                        pthread_join(threads[threadCount], NULL);
                         threadCount++;
                     
                     }
+                    
+                    for(int i = 0; i < threadCount; i++) {
+                        pthread_join(threads[i], NULL);
+                    }   
 
                     command = strtok_r(NULL, " ", &saveptr);
                 }
@@ -214,10 +217,6 @@ void classificationCommand(char * cmd){
 
         updateDirectoryFile();
     }
-    // //grep
-    // else if(strcmp(command, "grep") == 0){
-    //     handleGrepCommand(saveptr);
-    // }
     //cp
     else if (strcmp(command, "cp") == 0) {
     bool recursive = false;
