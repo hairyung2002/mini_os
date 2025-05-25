@@ -114,7 +114,7 @@ void adduser(char* argument, DirectoryTree* dirtree, UserList** usertree) {
         fprintf(stderr, "Error: Unable to open User.txt for writing\n");
         return;
     }
-    fprintf(userFile, "%s %d %d %d %d %d %d %d %d %d %d %s / \n",
+    fprintf(userFile, "%s %d %d %d %d %d %d %d %d %d %s / \n",
         newUser->name,
         newUser->UID,
         newUser->GID,
@@ -125,7 +125,6 @@ void adduser(char* argument, DirectoryTree* dirtree, UserList** usertree) {
         newUser->minute,
         newUser->sec,
         newUser->wday,
-        0,                // 필요시 dir 필드가 비어있으면 0 또는 ""로 대체
         newUser->dir
     ); // <<== 반드시 \n 포함!
     fclose(userFile);
