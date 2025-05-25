@@ -28,14 +28,14 @@ int isFull(Queue * queue){
 
 void enqueue(Queue * queue, const char * str){
     if (isFull(queue)){
-        fprintf(stderr, "Queue overflow\n"); //Queue is Full 도 ㄱㅊ아보임
+        fprintf(stderr, "Queue overflow\n");
         return;
     }
     queue -> rear = (queue -> rear + 1) % MAX_QUEUE_SIZE;
-    queue->items[queue->rear] = strdup(str);
+    queue->items[queue->rear] = strdup(str); // ✅ 내부에서 strdup로 복사
     queue->size++;
-
 }
+
 
 char * dequeue(Queue * queue){
     if (isEmpty(queue)){

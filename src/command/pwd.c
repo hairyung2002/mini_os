@@ -38,9 +38,13 @@ int pwd(DirectoryTree *dirTree, Queue *dirQueue, char *option) {
         printf("The current directory information could not be found.\n");
         return false;
     }
-    if (option == NULL || strcmp(option, "-") == 0 || strcmp(option, "--") == 0) {
+
+    // 옵션이 없거나 -L, -P, --, - 등은 모두 기본 동작
+    if (option == NULL || strcmp(option, "-") == 0 || strcmp(option, "--") == 0 ||
+        strcmp(option, "-L") == 0 || strcmp(option, "-P") == 0) {
         printPath(dirTree, dirQueue);
     }
+    // --help 옵션
     else if (strcmp(option, "--help") == 0) {
         printf("pwd: pwd [-LP]\n");
         printf("  Print the name of the current working directory.\n\n");
@@ -53,12 +57,17 @@ int pwd(DirectoryTree *dirTree, Queue *dirQueue, char *option) {
         printf("  Returns 0 unless an invalid option is given or the current directory\n");
         printf("  cannot be read.\n");
     }
-    else if (strchr(option, '-') == NULL) {
-        printPath(dirTree, dirQueue);
-    } else {
+    // 잘못된 옵션 처리
+    else if (option[0] == '-') {
         printf("-bash: pwd: %.2s: invalid option\n", option);
         printf("pwd: usage: pwd [-LP]\n");
         return false;
     }
+    // 인자가 경로 등일 때는 경로 출력
+    else {
+        printPath(dirTree, dirQueue);
+    }
     return true;
 }
+
+
