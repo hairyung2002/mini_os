@@ -531,5 +531,9 @@ void classificationCommand(char * cmd){
 
         unzip_files(zipName);
         // 압축 해제된 파일들은 zip_files 함수 내에서 가상 디렉토리에 추가됨
+    } else if (strcmp(command, "clear")==0){
+        clear();
+        return;
     }
+    
 }
