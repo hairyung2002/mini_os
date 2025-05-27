@@ -23,7 +23,7 @@ void enqueue(Queue * queue, const char * str){
         return;
     }
     queue -> rear = (queue -> rear + 1) % MAX_QUEUE_SIZE;
-    queue->items[queue->rear] = strdup(str); // ✅ 내부에서 strdup로 복사
+    queue->items[queue->rear] = strdup(str); // 내부에서 strdup로 복사
     queue->size++;
 }
 
