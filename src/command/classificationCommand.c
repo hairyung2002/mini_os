@@ -214,10 +214,7 @@ void classificationCommand(char * cmd){
 
         updateDirectoryFile();
     }
-    // //grep
-    // else if(strcmp(command, "grep") == 0){
-    //     handleGrepCommand(saveptr);
-    // }
+
     //cp
     else if (strcmp(command, "cp") == 0) {
     bool recursive = false;
