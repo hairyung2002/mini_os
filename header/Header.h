@@ -98,12 +98,6 @@ typedef struct{
     bool showDetails;
 } ListArgs;
 
-//Cat 인자
-typedef struct{
-    char* fileName;
-    bool showLineNumber;
-} CatArgs;
-
 //Makdir 인자
 typedef struct {
     char path[MAX_ROUTE];
@@ -204,8 +198,7 @@ void changeDirectory(char* path);
 
 
 // cat
-void* catThread(void* arg);
-void catFilesThread(char* fileNames[], int fileCount, bool showLineNumber);
+void catFiles(char* fileNames[], int fileCount, bool showLineNumber);
 void createFile(const char* fileName);
 void appendFile(const char* fileName);
 
