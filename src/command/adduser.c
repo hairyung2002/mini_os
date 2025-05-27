@@ -34,7 +34,7 @@ User* adduser(char* argument, int UID, int GID, DirectoryTree* dirtree, UserList
         while (tmp->nextUser != NULL) tmp = tmp->nextUser;
         tmp->nextUser = newUserList;
     }
-    printf("adduser: 사용자 '%s' 추가 완료 (UID=%d, GID=%d)\n", newUser->name, newUser->UID, newUser->GID);
+    printf("adduser: user '%s' added successfully (UID=%d, GID=%d)\n", newUser->name, newUser->UID, newUser->GID);
 
     FILE* userFile = fopen("information/User.txt", "a");
     if (userFile == NULL) {
