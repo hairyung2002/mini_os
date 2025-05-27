@@ -117,15 +117,6 @@ typedef struct{
     char mode[4];
 } ChmodArgs;
 
-//Grep 인자
-typedef struct{
-    bool showLineNumbers;
-    bool ignoreCase;
-    bool invertMatch;
-    char * targetString;
-    char * fileName;
-} GrepArgs;
-
 // rmdir 인자
 typedef struct {
     char* dirPath;
