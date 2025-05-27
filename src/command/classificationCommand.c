@@ -316,18 +316,29 @@ void classificationCommand(char * cmd){
     updateDirectoryFile();
 }
 
-    //pwd
-    else if (strcmp(command, "pwd")==0) {
-    Queue dirQueue;
-    initQueue(&dirQueue);
+    //pwd.c
+    else if (strcmp(command, "pwd") == 0){
+        Queue dirQueue;
+        initQueue(&dirQueue);
+        command = strtok_r(NULL, " ", &saveptr);
 
-    // 옵션 파싱
-    char *opt = strtok_r(NULL, " ", &saveptr);
-    pwd(dirTree, &dirQueue, opt);
+        if (command != NULL && strcmp(command,"-L") == 0){
+            pwd(dirTree, &dirQueue, "-L");
+        } else if (command != NULL && strcmp(command,"-P") == 0){
+            pwd(dirTree, &dirQueue, "-P");
+        } else if(command != NULL && strcmp(command, "--help") == 0){
+            pwd(dirTree, &dirQueue, "--help");
+        } else{
+            pwd(dirTree, &dirQueue, NULL);
+        }
+        freeQueue(&dirQueue);
+    }
 
-    // 필요하다면 freeQueue(&dirQueue); // 큐 메모리 해제
-    return;
-}
+    //clear.c
+    else if (strcmp(command, "clear")==0){
+        clear();
+        return;
+    }
 
 
     //mv
@@ -431,14 +442,39 @@ void classificationCommand(char * cmd){
             free(dirPaths[i]);
         }
     }
-    //adduser
-    else if(strcmp(command, "adduser") == 0 ) {
-        char *opt = strtok_r(NULL, "", &saveptr);
-        adduser(opt, dirTree, &userList); // 함수 이름을 맞춰서 호출
-        return;
+    
+    //adduser.c
+    else if (strcmp(command, "adduser") == 0){
+        int UID = 1000;
+        int GID = 1000;
+        char username[MAX_NAME] = {0};
+        command = strtok_r(NULL, " ", &saveptr);
+
+        while (command != NULL){
+            if (strcmp(command, "-u") == 0) {
+                command = strtok_r(NULL, " ", &saveptr);
+                if (command != NULL) {
+                    UID = atoi(command);
+                }
+            } else if (strcmp(command, "-g") == 0) {
+                command = strtok_r(NULL, " ", &saveptr);
+                if (command != NULL) {
+                    GID = atoi(command);
+                }
+            } else {
+                strncpy(username, command, MAX_NAME - 1);
+                username[MAX_NAME - 1] = '\0';
+            }
+            command = strtok_r(NULL, " ", &saveptr);
+        }
+
+        if(strlen(username) == 0){
+            printf("adduser: have to enter user name.\n");
+            return;
+        }
+
+        adduser(username, UID, GID, dirTree, &userList);
     }
-
-
     
     //zip.c
     else if (strcmp(command, "zip") == 0) {
