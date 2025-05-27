@@ -232,20 +232,16 @@ static Directory* create_file_safely(const char* path, const char* mode, long si
 //clear
 int clear();
 
+//pwd
+int pwd(DirectoryTree *dirTree, Queue *dirQueue, char *option);
 
 //useradd
-User* addUser(char* username, int UID, int GID);
-void createHomeDirectory(char* username, User* newUser);
-void adduser(char* argument, DirectoryTree* dirtree, UserList** usertree);
+User* adduser(char* username, int UID, int GID, DirectoryTree* dirTree, UserList** userTree);
 
 //login.c
 User* login();
 
 //printHeader
 void printHeader(DirectoryTree* workingDirectory, User* user);
-
-//pwd
-// pwd 함수 선언
-int pwd(DirectoryTree *dirTree, Queue *dirQueue, char *option);
 
 #endif
