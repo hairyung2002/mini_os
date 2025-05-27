@@ -69,5 +69,3 @@ int pwd(DirectoryTree *dirTree, Queue *dirQueue, char *option) {
     }
     return true;
 }
-
-
